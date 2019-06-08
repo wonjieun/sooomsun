@@ -10,6 +10,13 @@ export class Form extends Component {
     console.log(this.props.applyForm);
   }
 
+  _setOption(e, option) {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      console.log(option);
+    }
+  }
+
   render() {
     const { currentIndex } = this.state;
     const { applyForm } = this.props;
@@ -27,19 +34,26 @@ export class Form extends Component {
                       <div class="form-group">
                         <div class="col-md-9 col-md-offset-3">
                           <ul>
-                            {item.options.map((option, optionIndex) => {
-                              return (
-                                <li className="item-list">
-                                  <div className="checkbox-lable">
-                                    <input
-                                      type="checkbox"
-                                      className="checkbox"
-                                    />
-                                    {option.text}
-                                  </div>
-                                </li>
-                              );
-                            })}
+                            {item.options.length === 0 ? (
+                              <input type="text" />
+                            ) : (
+                              item.options.map((option, optionIndex) => {
+                                return (
+                                  <li className="item-list">
+                                    <div className="checkbox-lable">
+                                      <input
+                                        type="checkbox"
+                                        className="checkbox"
+                                        onChange={e =>
+                                          this._setOption(e, option)
+                                        }
+                                      />
+                                      {option.text}
+                                    </div>
+                                  </li>
+                                );
+                              })
+                            )}
                           </ul>
                         </div>
                       </div>
@@ -60,7 +74,11 @@ export class Form extends Component {
               Back
             </button>
           )}
-          {applyForm.length === currentIndex ? null : (
+          {applyForm.length === currentIndex ? (
+            <button class="btn btn-sm" name="next">
+              Submit
+            </button>
+          ) : (
             <button
               class="btn btn-sm"
               name="next"
