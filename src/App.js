@@ -6,16 +6,16 @@ function App() {
   return (
     <div className="App">
       <h1>{jsonResponse.title}</h1>
-      <main class="steps">
-        <section id="states" data-state="form" class="">
+      <main className="steps">
+        <section id="states" data-state="form" className="">
           <Form applyForm={jsonResponse.items} />
 
-          <article id="finish" class="">
+          <article id="finish" className="">
             <h2>Thank you!</h2>
             <p>Your membership information has been emailed to you</p>
           </article>
 
-          <article id="error" class="">
+          <article id="error" className="">
             <h2 style={{ color: 'red' }}>Sorry</h2>
             <p>There was a problem saving your details to the server</p>
           </article>
