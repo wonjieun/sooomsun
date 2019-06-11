@@ -5,12 +5,7 @@ export class Form extends Component {
     currentIndex: 1,
     selectedOption: {
       id: 1,
-      items: [
-        // {
-        //   id: 1,
-        //   answer: ''
-        // }
-      ]
+      items: []
     },
     tempItems: []
   };
@@ -50,12 +45,10 @@ export class Form extends Component {
     let { selectedOption, tempItems } = this.state;
     tempItems.map((element, i) => {
       console.log(element);
-      // if (!selectedOption.items[i]) {
       selectedOption.items.push({
         id: 1,
         answer: ''
       });
-      // }
       const top = selectedOption.items.length - 1;
       selectedOption.items[top].id = element.id;
       selectedOption.items[top].answer = element.text;
@@ -97,13 +90,11 @@ export class Form extends Component {
                   <input
                     type="radio"
                     name="radio"
-                    // {`radio${option.id}`}
-                    className="checkbox"
-                    // checked={`${option.id}` === this.state.tempItems.id}
-                    onChange={e => {
+                    id={`radio${option.id}`}
+                    className="radio"
+                    onChange={() => {
                       let tempItems = [];
                       tempItems.push(option);
-                      console.log(tempItems);
                       this.setState({ tempItems });
                     }}
                   />
@@ -135,46 +126,6 @@ export class Form extends Component {
         );
     }
   };
-  /* _renderFormType = (formType, option) => {
-    switch (formType) {
-      case 1:
-        return (
-          <>
-            <input
-              type="checkbox"
-              className="checkbox"
-              onChange={e => this._checkboxOption(e, option)}
-            />
-            {option.text}
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <input
-              type="radio"
-              className="radio"
-              onChange={e => this._checkboxOption(e, option)}
-            />
-            {option.text}
-          </>
-        );
-      case 3:
-        return (
-          <input
-            type="text"
-            className="text"
-            onChange={e => this._checkboxOption(e, option)}
-          />
-        );
-      case 4:
-        return (
-          <select onChange={e => this._checkboxOption(e, option)}>
-            <option>{option.text}</option>
-          </select>
-        );
-    }
-  }; */
 
   render() {
     // 첫 번째 질문일 경우, Back 버튼 숨기기 또는 disabled 처리
@@ -194,21 +145,7 @@ export class Form extends Component {
                     <fieldset>
                       <div className="form-group">
                         <div className="col-md-9 col-md-offset-3">
-                          <ul>
-                            {this._renderFormType(item)}
-                            {/* {item.options.map((option, optionIndex) => {
-                              return (
-                                <li className="item-list">
-                                  <div>
-                                    {this._renderFormType(
-                                      item.formType,
-                                      option
-                                    )}
-                                  </div>
-                                </li>
-                              );
-                            })} */}
-                          </ul>
+                          <ul>{this._renderFormType(item)}</ul>
                         </div>
                       </div>
                     </fieldset>
