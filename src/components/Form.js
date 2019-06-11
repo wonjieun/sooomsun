@@ -7,60 +7,59 @@ export class Form extends Component {
       id: 1,
       items: []
     },
-    tempItems: []
+    tempOption: []
   };
 
   componentDidMount() {
     console.log(this.props.applyForm);
   }
 
-  _checkboxOption = (e, option) => {
+  _checkboxOption = (e, option, itemId) => {
     const isChecked = e.target.checked;
-    let { tempItems } = this.state;
+    let { tempOption } = this.state;
     if (isChecked) {
-      //1. tempItems를 만들어서 Next를 클릭하기 전에 저장한다.
-      tempItems.push(option);
-
+      //1. tempOption를 만들어서 Next를 클릭하기 전에 저장한다.
+      tempOption.push(option);
       //2. prevState를 이용한다. -> 조금 늦게 세팅 된다.
       // this.setState(prevState => ({
-      //   tempItems: [...prevState.tempItems, option]
+      //   tempOption: [...prevState.tempOption, option]
       // }));
     } else {
-      tempItems = tempItems.filter(id => {
-        if (id !== option.id) console.log();
-        return id !== option.id;
-      });
-      console.log(tempItems);
+      tempOption = tempOption.filter(tempItem => tempItem.id !== option.id);
     }
     this.setState({
-      tempItems
+      tempOption,
+      itemId
     });
   };
 
   _setOption = () => {
-    // Next클릭과 함께 선택한 tempItems를 output data에 담는다
+    // Next클릭과 함께 선택한 tempOption를 output data에 담는다
     // 질문에 대한 대답은 "text" 키로 되어 있지만 output data를 위해서는
     // "answer" 키에 넣어주어야 한다. 키 자체를 변경하던지,(1)
     // 하나하나 요소를 빼서 다시 넣어준다.(2)
-    let { selectedOption, tempItems } = this.state;
-    tempItems.map((element, i) => {
-      console.log(element);
-      selectedOption.items.push({
-        id: 1,
-        answer: ''
-      });
-      const top = selectedOption.items.length - 1;
-      selectedOption.items[top].id = element.id;
-      selectedOption.items[top].answer = element.text;
+    let { selectedOption, tempOption, itemId } = this.state;
+    let answer = '';
+    selectedOption.items.push({
+      id: 0,
+      answer: ''
     });
-    console.log(selectedOption);
+    tempOption.map((element, i) => {
+      if (i === 0) answer = element.text;
+      else answer = answer.concat(',', element.text);
+    });
+    const top = selectedOption.items.length - 1;
+    selectedOption.items[top].id = itemId;
+    selectedOption.items[top].answer = answer;
     this.setState(prevState => ({
       currentIndex: prevState.currentIndex + 1,
       selectedOption
     }));
+    console.log(selectedOption);
   };
 
   _renderFormType = item => {
+    const itemId = item.itemId;
     const formType = item.formType;
     const options = item.options;
     switch (formType) {
@@ -69,11 +68,11 @@ export class Form extends Component {
           <li className="item-list">
             {options.map((option, i) => {
               return (
-                <div>
+                <div key={i}>
                   <input
                     type="checkbox"
                     className="checkbox"
-                    onChange={e => this._checkboxOption(e, option)}
+                    onChange={e => this._checkboxOption(e, option, itemId)}
                   />
                   {option.text}
                 </div>
@@ -93,12 +92,12 @@ export class Form extends Component {
                     id={`radio${option.id}`}
                     className="radio"
                     onChange={() => {
-                      let tempItems = [];
-                      tempItems.push(option);
-                      this.setState({ tempItems });
+                      let tempOption = [];
+                      tempOption.push(option);
+                      this.setState({ tempOption, itemId });
                     }}
                   />
-                  <label for={`radio${option.id}`}>{option.text}</label>
+                  <label htmlFor={`radio${option.id}`}>{option.text}</label>
                 </div>
               );
             })}
@@ -110,14 +109,22 @@ export class Form extends Component {
             <input
               type="text"
               className="text"
-              onChange={e => this._checkboxOption(e)}
+              onChange={e => {
+                let tempOption = [{ text: e.target.value }];
+                this.setState({ tempOption, itemId });
+              }}
             />
           </li>
         );
       case 4:
         return (
           <li className="item-list">
-            <select onChange={e => this._checkboxOption(e)}>
+            <select
+              onChange={e => {
+                let tempOption = [{ text: e.target.value }];
+                this.setState({ tempOption, itemId });
+              }}
+            >
               {options.map((option, i) => {
                 return <option>{option.text}</option>;
               })}
@@ -136,7 +143,7 @@ export class Form extends Component {
       <>
         <article id="form" className="active">
           {applyForm.map((item, itemIndex) => {
-            if (currentIndex === item.itemId)
+            if (currentIndex === itemIndex + 1)
               return (
                 <>
                   <h2>Form{currentIndex}</h2>
@@ -166,7 +173,11 @@ export class Form extends Component {
             </button>
           )}
           {applyForm.length === currentIndex ? (
-            <button className="btn btn-sm" name="submit">
+            <button
+              className="btn btn-sm"
+              name="submit"
+              onClick={() => this._setOption()}
+            >
               Submit
             </button>
           ) : (
