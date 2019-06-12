@@ -27,5 +27,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/wonjieun/sooomsun.git",
+  "author": "wonjieun <wonjieunkk@gmail.com>",
+  "license": "MIT"
 }

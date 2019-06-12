@@ -14,7 +14,7 @@ export class Form extends Component {
     console.log(this.props.applyForm);
   }
 
-  _checkboxOption = (e, option, itemId) => {
+  _checkedOption = (e, option, itemId) => {
     const isChecked = e.target.checked;
     let { tempOption } = this.state;
     if (isChecked) {
@@ -39,24 +39,31 @@ export class Form extends Component {
     // "answer" 키에 넣어주어야 한다. 키 자체를 변경하던지,(1)
     // 하나하나 요소를 빼서 다시 넣어준다.(2)
     let { selectedOption, tempOption, itemId } = this.state;
-    let answer = '';
-    selectedOption.items.push({
-      id: 0,
-      answer: ''
-    });
-    tempOption.map((element, i) => {
-      if (i === 0) answer = element.text;
-      else answer = answer.concat(',', element.text);
-    });
-    const top = selectedOption.items.length - 1;
-    selectedOption.items[top].id = itemId;
-    selectedOption.items[top].answer = answer;
-    this.setState(prevState => ({
-      currentIndex: prevState.currentIndex + 1,
-      selectedOption
-    }));
-    console.log(selectedOption);
+    if (tempOption.length !== 0) {
+      let answer = '';
+      selectedOption.items.push({
+        id: 0,
+        answer: ''
+      });
+      tempOption.forEach((element, i) => {
+        if (i === 0) answer = element.text;
+        else answer = answer.concat(',', element.text);
+      });
+      const top = selectedOption.items.length - 1;
+      selectedOption.items[top].id = itemId;
+      selectedOption.items[top].answer = answer;
+      this.setState(prevState => ({
+        currentIndex: prevState.currentIndex + 1,
+        selectedOption,
+        tempOption: []
+      }));
+      console.log(selectedOption);
+    } else {
+      alert('선택하세요');
+    }
   };
+
+  _submitOptions = () => {};
 
   _renderFormType = item => {
     const itemId = item.itemId;
@@ -72,7 +79,7 @@ export class Form extends Component {
                   <input
                     type="checkbox"
                     className="checkbox"
-                    onChange={e => this._checkboxOption(e, option, itemId)}
+                    onChange={e => this._checkedOption(e, option, itemId)}
                   />
                   {option.text}
                 </div>
@@ -131,6 +138,8 @@ export class Form extends Component {
             </select>
           </li>
         );
+      default:
+        break;
     }
   };
 
