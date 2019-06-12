@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 export class Form extends Component {
   state = {
+    isComplete: false,
     currentIndex: 1,
     selectedOption: {
       id: 1,
@@ -14,12 +15,7 @@ export class Form extends Component {
     const isChecked = e.target.checked;
     let { tempOption } = this.state;
     if (isChecked) {
-      //1. tempOption를 만들어서 Next를 클릭하기 전에 저장한다.
       tempOption.push(option);
-      //2. prevState를 이용한다. -> 조금 늦게 세팅 된다.
-      // this.setState(prevState => ({
-      //   tempOption: [...prevState.tempOption, option]
-      // }));
     } else {
       tempOption = tempOption.filter(tempItem => tempItem.id !== option.id);
     }
@@ -30,10 +26,6 @@ export class Form extends Component {
   };
 
   _setOption = () => {
-    // Next클릭과 함께 선택한 tempOption를 output data에 담는다
-    // 질문에 대한 대답은 "text" 키로 되어 있지만 output data를 위해서는
-    // "answer" 키에 넣어주어야 한다. 키 자체를 변경하던지,(1)
-    // 하나하나 요소를 빼서 다시 넣어준다.(2)
     let { selectedOption, tempOption, itemId, currentIndex } = this.state;
     const { applyForm } = this.props;
     if (tempOption.length !== 0) {
@@ -52,10 +44,12 @@ export class Form extends Component {
       if (applyForm.length === currentIndex) {
         this.setState({
           selectedOption,
-          tempOption: []
+          tempOption: [],
+          isComplete: true
         });
         console.log('Output Data');
         console.log(selectedOption);
+        alert('요청서를 보내는 중입니다!');
       } else {
         this.setState(prevState => ({
           currentIndex: prevState.currentIndex + 1,
@@ -148,51 +142,56 @@ export class Form extends Component {
   };
 
   render() {
-    // 마지막 질문일 경우, Next 버튼 숨기기 또는 disabled 처리 그리고 Submit 생성
-    const { currentIndex } = this.state;
+    const { currentIndex, isComplete } = this.state;
     const { applyForm } = this.props;
     return (
       <>
-        <article id="form" className="active">
-          {applyForm.map((item, itemIndex) => {
-            if (currentIndex === itemIndex + 1)
-              return (
-                <>
-                  <h2>Form{currentIndex}</h2>
-                  <form className="form-horizontal">
-                    <p>{item.title}</p>
-                    <fieldset>
-                      <div className="form-group">
-                        <div className="col-md-9 col-md-offset-3">
-                          <ul>{this._renderFormType(item)}</ul>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                </>
-              );
-            else return null;
-          })}
-        </article>
-        <section id="controls">
-          {applyForm.length === currentIndex ? (
-            <button
-              className="btn btn-sm"
-              name="submit"
-              onClick={() => this._setOption()}
-            >
-              Submit
-            </button>
-          ) : (
-            <button
-              className="btn btn-sm"
-              name="next"
-              onClick={() => this._setOption()}
-            >
-              Next
-            </button>
-          )}
-        </section>
+        {isComplete ? (
+          '맞춤 견적서가 오고 있어요! 최대 6명의 선생님이 견적서를 보내요'
+        ) : (
+          <>
+            <article id="form" className="active">
+              {applyForm.map((item, itemIndex) => {
+                if (currentIndex === itemIndex + 1)
+                  return (
+                    <>
+                      <h2>Form{currentIndex}</h2>
+                      <form className="form-horizontal">
+                        <p>{item.title}</p>
+                        <fieldset>
+                          <div className="form-group">
+                            <div className="col-md-9 col-md-offset-3">
+                              <ul>{this._renderFormType(item)}</ul>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </form>
+                    </>
+                  );
+                else return null;
+              })}
+            </article>
+            <section id="controls">
+              {applyForm.length === currentIndex ? (
+                <button
+                  className="btn btn-sm"
+                  name="submit"
+                  onClick={() => this._setOption()}
+                >
+                  Submit
+                </button>
+              ) : (
+                <button
+                  className="btn btn-sm"
+                  name="next"
+                  onClick={() => this._setOption()}
+                >
+                  Next
+                </button>
+              )}
+            </section>
+          </>
+        )}
       </>
     );
   }
