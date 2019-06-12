@@ -68,32 +68,6 @@ export class Form extends Component {
     }
   };
 
-  /* _submitOptions = () => {
-    let { selectedOption, tempOption, itemId } = this.state;
-    if (tempOption.length !== 0) {
-      let answer = '';
-      selectedOption.items.push({
-        id: 0,
-        answer: ''
-      });
-      tempOption.forEach((element, i) => {
-        if (i === 0) answer = element.text;
-        else answer = answer.concat(',', element.text);
-      });
-      const top = selectedOption.items.length - 1;
-      selectedOption.items[top].id = itemId;
-      selectedOption.items[top].answer = answer;
-      this.setState({
-        selectedOption,
-        tempOption: []
-      });
-      console.log('Output Data');
-      console.log(selectedOption);
-    } else {
-      alert('값을 입력해주세요!');
-    }
-  }; */
-
   _renderFormType = item => {
     const itemId = item.itemId;
     const formType = item.formType;
@@ -174,7 +148,6 @@ export class Form extends Component {
   };
 
   render() {
-    // 첫 번째 질문일 경우, Back 버튼 숨기기 또는 disabled 처리
     // 마지막 질문일 경우, Next 버튼 숨기기 또는 disabled 처리 그리고 Submit 생성
     const { currentIndex } = this.state;
     const { applyForm } = this.props;
