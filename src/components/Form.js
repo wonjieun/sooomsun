@@ -31,6 +31,7 @@ export class Form extends Component {
       tempOption,
       itemId
     });
+    console.log(tempOption);
   };
 
   _setOption = () => {
@@ -59,11 +60,44 @@ export class Form extends Component {
       }));
       console.log(selectedOption);
     } else {
-      alert('선택하세요');
+      alert('값을 입력해주세요!');
     }
   };
 
-  _submitOptions = () => {};
+  _resetOption = () => {
+    let { selectedOption, tempOption, itemId } = this.state;
+    tempOption = selectedOption.items.filter(item => item.id === itemId);
+    for (let obj of tempOption) {
+      obj['text'] = obj['answer'];
+      delete obj['answer'];
+    }
+    console.log(tempOption);
+  };
+
+  _submitOptions = () => {
+    let { selectedOption, tempOption, itemId } = this.state;
+    if (tempOption.length !== 0) {
+      let answer = '';
+      selectedOption.items.push({
+        id: 0,
+        answer: ''
+      });
+      tempOption.forEach((element, i) => {
+        if (i === 0) answer = element.text;
+        else answer = answer.concat(',', element.text);
+      });
+      const top = selectedOption.items.length - 1;
+      selectedOption.items[top].id = itemId;
+      selectedOption.items[top].answer = answer;
+      this.setState(prevState => ({
+        selectedOption,
+        tempOption: []
+      }));
+      console.log(`Output Data : ${selectedOption}`);
+    } else {
+      alert('값을 입력해주세요!');
+    }
+  };
 
   _renderFormType = item => {
     const itemId = item.itemId;
@@ -176,7 +210,10 @@ export class Form extends Component {
             <button
               className="btn btn-sm"
               name="back"
-              onClick={() => this.setState({ currentIndex: currentIndex - 1 })}
+              onClick={() => {
+                this._resetOption();
+                this.setState({ currentIndex: currentIndex - 1 });
+              }}
             >
               Back
             </button>
@@ -185,7 +222,7 @@ export class Form extends Component {
             <button
               className="btn btn-sm"
               name="submit"
-              onClick={() => this._setOption()}
+              onClick={() => this._submitOptions()}
             >
               Submit
             </button>
