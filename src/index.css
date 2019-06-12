@@ -44,8 +44,16 @@ pre {
   color: #333;
 }
 
-ul ul {
-  margin: 10px 0 20px;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+select,
+button {
+  outline: none;
 }
 
 .indent {
@@ -61,62 +69,9 @@ table code {
   font-size: 0.8em;
 }
 
-/* ------------------------------------------------------------------------------------------------
-* special
-*/
-
-a#home {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: #ecf0f1;
-  padding: 3px 6px;
-  border-radius: 3px;
-  font-size: 0.8em;
+section#controls {
+  padding: 0 0 30px 20px;
 }
-
-a#home:hover {
-  text-decoration: none;
-  background: #dde4e6;
-  color: #15a589;
-}
-
-/* ------------------------------------------------------------------------------------------------
-* states state
-*/
-
-main.steps article {
-  display: none;
-}
-
-main.steps article.active {
-  display: block;
-}
-
-#states {
-  transition: 0.5s all;
-}
-
-#states.paused {
-  opacity: 0.25;
-}
-
-.btn {
-  background-color: #95a5a6;
-}
-
-.btn[disabled] {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.btn[disabled]:hover {
-  color: inherit;
-}
-
-/* ------------------------------------------------------------------------------------------------
-* states formatting
-*/
 
 main.steps article {
   width: 500px;
@@ -148,11 +103,58 @@ main.steps h2 {
 }
 
 main.steps p {
+  font-size: 20px;
 }
 
-/* checkbox */
+.form-group {
+  margin: 10px;
+}
 
-.checkbox {
+.checkbox-block,
+.radio-block {
+  position: relative;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.checkbox,
+.radio {
+  position: absolute;
   width: 20px;
   height: 20px;
+  margin-left: -30px;
+  margin-top: 0px;
+}
+
+.text {
+  width: 98%;
+  height: 25px;
+  padding-left: 10px;
+}
+
+.selectbox {
+  width: 100%;
+  height: 25px;
+  padding-left: 10px;
+}
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.btn-sm {
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  background: #39ae92;
+  margin-top: 15px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
 }

@@ -10,15 +10,10 @@ function App() {
         <section id="states" data-state="form" className="">
           <Form applyForm={jsonResponse.items} />
 
-          <article id="finish" className="">
-            <h2>Thank you!</h2>
-            <p>Your membership information has been emailed to you</p>
-          </article>
-
-          <article id="error" className="">
+          {/* <article id="error" className="">
             <h2 style={{ color: 'red' }}>Sorry</h2>
             <p>There was a problem saving your details to the server</p>
-          </article>
+          </article> */}
         </section>
       </main>
     </div>

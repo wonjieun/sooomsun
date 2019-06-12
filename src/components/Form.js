@@ -43,13 +43,10 @@ export class Form extends Component {
       selectedOption.items[top].answer = answer;
       if (applyForm.length === currentIndex) {
         this.setState({
-          selectedOption,
-          tempOption: [],
           isComplete: true
         });
         console.log('Output Data');
         console.log(selectedOption);
-        alert('요청서를 보내는 중입니다!');
       } else {
         this.setState(prevState => ({
           currentIndex: prevState.currentIndex + 1,
@@ -72,7 +69,7 @@ export class Form extends Component {
           <li className="item-list">
             {options.map((option, i) => {
               return (
-                <div key={i}>
+                <div key={i} className="checkbox-block">
                   <input
                     type="checkbox"
                     className="checkbox"
@@ -89,7 +86,7 @@ export class Form extends Component {
           <li className="item-list">
             {options.map((option, i) => {
               return (
-                <div>
+                <div key={i} className="radio-block">
                   <input
                     type="radio"
                     name="radio"
@@ -124,6 +121,7 @@ export class Form extends Component {
         return (
           <li className="item-list">
             <select
+              className="selectbox"
               onChange={e => {
                 let tempOption = [{ text: e.target.value }];
                 this.setState({ tempOption, itemId });
@@ -147,7 +145,10 @@ export class Form extends Component {
     return (
       <>
         {isComplete ? (
-          '맞춤 견적서가 오고 있어요! 최대 6명의 선생님이 견적서를 보내요'
+          <article id="finish">
+            <h2>맞춤 견적서가 오고 있어요!</h2>
+            <p>최대 6명의 선생님이 견적서를 보내요</p>
+          </article>
         ) : (
           <>
             <article id="form" className="active">
@@ -160,9 +161,7 @@ export class Form extends Component {
                         <p>{item.title}</p>
                         <fieldset>
                           <div className="form-group">
-                            <div className="col-md-9 col-md-offset-3">
-                              <ul>{this._renderFormType(item)}</ul>
-                            </div>
+                            <ul>{this._renderFormType(item)}</ul>
                           </div>
                         </fieldset>
                       </form>
