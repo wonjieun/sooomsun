@@ -28,7 +28,7 @@ export class Form extends Component {
   _setOption = () => {
     let { selectedOption, tempOption, itemId, currentIndex } = this.state;
     const { applyForm } = this.props;
-    if (tempOption.length !== 0) {
+    if (tempOption.length !== 0 && tempOption[0].text !== '') {
       let answer = '';
       selectedOption.items.push({
         id: 0,
@@ -60,9 +60,7 @@ export class Form extends Component {
   };
 
   _renderFormType = item => {
-    const itemId = item.itemId;
-    const formType = item.formType;
-    const options = item.options;
+    const { itemId, formType, options } = item;
     switch (formType) {
       case 1:
         return (
@@ -129,7 +127,7 @@ export class Form extends Component {
             >
               <option>선택</option>
               {options.map((option, i) => {
-                return <option>{option.text}</option>;
+                return <option key={i}>{option.text}</option>;
               })}
             </select>
           </li>
