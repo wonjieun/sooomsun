@@ -155,17 +155,14 @@ export class Form extends Component {
               {applyForm.map((item, itemIndex) => {
                 if (currentIndex === itemIndex + 1)
                   return (
-                    <>
-                      <h2>Form{currentIndex}</h2>
-                      <form className="form-horizontal">
-                        <p>{item.title}</p>
-                        <fieldset>
-                          <div className="form-group">
-                            <ul>{this._renderFormType(item)}</ul>
-                          </div>
-                        </fieldset>
-                      </form>
-                    </>
+                    <form className="form-horizontal">
+                      <p>{item.title}</p>
+                      <fieldset>
+                        <div className="form-group">
+                          <ul>{this._renderFormType(item)}</ul>
+                        </div>
+                      </fieldset>
+                    </form>
                   );
                 else return null;
               })}
