@@ -150,24 +150,28 @@ export class Form extends Component {
         ) : (
           <>
             <article id="form" className="active">
-              {applyForm.map((item, itemIndex) => {
-                if (currentIndex === itemIndex + 1)
-                  return (
-                    <form className="form-horizontal">
-                      <p>{item.title}</p>
-                      <fieldset>
-                        <div className="form-group">
-                          <ul>{this._renderFormType(item)}</ul>
-                        </div>
-                      </fieldset>
-                    </form>
-                  );
-                else return null;
-              })}
+              {applyForm && applyForm.length > 0
+                ? applyForm.map((item, itemIndex) => {
+                    if (currentIndex === itemIndex + 1)
+                      return (
+                        <form key={itemIndex} className="form-horizontal">
+                          <p>{item.title}</p>
+                          <fieldset>
+                            <div className="form-group">
+                              <ul>{this._renderFormType(item)}</ul>
+                            </div>
+                          </fieldset>
+                        </form>
+                      );
+                    else return null;
+                  })
+                : null}
             </article>
             <section id="controls">
               <button className="btn btn-sm" onClick={() => this._setOption()}>
-                {applyForm.length === currentIndex ? 'Submit' : 'Next'}
+                {applyForm && applyForm.length === currentIndex
+                  ? 'Submit'
+                  : 'Next'}
               </button>
             </section>
           </>

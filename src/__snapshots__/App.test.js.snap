@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App matches snapshot 1`] = `
+<div
+  className="App"
+>
+  <h1>
+    사무실 대청소 요청서 폼
+  </h1>
+  <main
+    className="steps"
+  >
+    <section
+      className=""
+      data-state="form"
+      id="states"
+    >
+      <article
+        className="active"
+        id="form"
+      >
+        <form
+          className="form-horizontal"
+        >
+          <p>
+            원하는 청소 스타일은 무엇인가요?
+          </p>
+          <fieldset>
+            <div
+              className="form-group"
+            >
+              <ul>
+                <li
+                  className="item-list"
+                >
+                  <div
+                    className="checkbox-block"
+                  >
+                    <input
+                      className="checkbox"
+                      onChange={[Function]}
+                      type="checkbox"
+                    />
+                    스팀청소
+                  </div>
+                  <div
+                    className="checkbox-block"
+                  >
+                    <input
+                      className="checkbox"
+                      onChange={[Function]}
+                      type="checkbox"
+                    />
+                    진공청소기로 청소
+                  </div>
+                  <div
+                    className="checkbox-block"
+                  >
+                    <input
+                      className="checkbox"
+                      onChange={[Function]}
+                      type="checkbox"
+                    />
+                    쓰레기 비우기
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </fieldset>
+        </form>
+      </article>
+      <section
+        id="controls"
+      >
+        <button
+          className="btn btn-sm"
+          onClick={[Function]}
+        >
+          Next
+        </button>
+      </section>
+    </section>
+  </main>
+</div>
+`;

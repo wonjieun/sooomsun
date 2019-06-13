@@ -42,3 +42,14 @@ yarn start
 - `_checkedOption` : `formType=1`인, 즉 selectbox에 대한 onChange 이벤트 콜백함수
 - `_setOption` : `tempOption`을 통해 저장한 임시 데이터를 `selectedOption`에 세팅. Next/Submit 버튼 클릭 이벤트 콜백함수
 - `_renderFormType` : `formType`에 따라 케이스를 나누어 렌더링
+
+## 유닛테스트
+
+```
+yarn add --dev react-test-renderer
+yarn test
+```
+
+- Test 파일 생성하여 스냅샷 만들기
+- 스냅샷 테스팅을 위해 react-test-renderer 설치
+- 이전의 결과물과 변경된 결과물이 일치하는지 확인까지만 진행

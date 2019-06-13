@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter matches snapshot 1`] = `
+Array [
+  <article
+    className="active"
+    id="form"
+  />,
+  <section
+    id="controls"
+  >
+    <button
+      className="btn btn-sm"
+      onClick={[Function]}
+    >
+      Next
+    </button>
+  </section>,
+]
+`;
