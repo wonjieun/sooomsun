@@ -22,6 +22,7 @@ yarn start
 ### App
 
 - 폼의 타이틀을 렌더링하며, Form 컴포넌트를 import
+- `jsonResponse`를 import하여 Form에 props 전달
 
 ### Form
 
