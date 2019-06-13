@@ -166,23 +166,9 @@ export class Form extends Component {
               })}
             </article>
             <section id="controls">
-              {applyForm.length === currentIndex ? (
-                <button
-                  className="btn btn-sm"
-                  name="submit"
-                  onClick={() => this._setOption()}
-                >
-                  Submit
-                </button>
-              ) : (
-                <button
-                  className="btn btn-sm"
-                  name="next"
-                  onClick={() => this._setOption()}
-                >
-                  Next
-                </button>
-              )}
+              <button className="btn btn-sm" onClick={() => this._setOption()}>
+                {applyForm.length === currentIndex ? 'Submit' : 'Next'}
+              </button>
             </section>
           </>
         )}
